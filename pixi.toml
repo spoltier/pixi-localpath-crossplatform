@@ -2,8 +2,8 @@
 authors = ["Simon Poltier <simon.poltier@mirai-solutions.com>"]
 channels = [
     "conda-forge",
-    # "file://C:/tmp/private_artifacts/conda",
-    "file:///tmp/private_artifacts/conda",
+    # "file://C:/tmp/custom_artifacts/conda",
+    "file:///tmp/custom_artifacts/conda",
 ]
 name = "pixi-localpath-crossplatform"
 platforms = ["linux-64", "win-64"]
@@ -14,19 +14,10 @@ version = "0.1.0"
 [dependencies]
 
 # [feature.main.target.win-64.dependencies]
-# hll = { version = "*", channel = "file://C:/tmp/private_artifacts/conda" }
+# hll = { version = "*", channel = "file://C:/tmp/custom_artifacts/conda" }
 [feature.main.target.linux-64.dependencies]
-hll = { version = "*", channel = "file:///tmp/private_artifacts/conda" }
+hll = { version = "*", channel = "file:///tmp/custom_artifacts/conda" }
 
-[feature.bootstrap.dependencies]
-conda = "*"
-conda-build = "*"
-
-[feature.bootstrap.target.linux-64.tasks]
-setup = "setup.sh"
-[feature.bootstrap.target.win-64.tasks]
-setup = "powershell -File setup.ps1"
 
 [environments]
 default = { features = ["main"] }
-bootstrap = { features = ["bootstrap"] }

@@ -28,13 +28,21 @@ jobs:
         with:
           pixi-version: v0.42.1
           frozen: true
-          # install bootstrap env
-          environments: >-
-            bootstrap
+          # install no envs
+          environments: ''
           cache-write: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
-    
-      - name: get dependencies
-        run: pixi run setup
+  
+      - name: install conda
+        run: pixi global install conda --with conda-build
+
+      - name: setup linux
+        if: matrix.os == 'ubuntu-latest'
+        run: setup.sh
+
+      - name: setup windows
+        if: matrix.os == 'windows-latest'
+        run: powershell -File setup.ps1      
+
 
       - name: install main env
         run: pixi install --frozen
@@ -42,3 +50,4 @@ jobs:
       - name: Lock-file is up-to-date
         if: always() && steps.pixi-setup.outcome == 'success'
         run: pixi list --locked
+
