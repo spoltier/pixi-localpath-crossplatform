@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  # Triggered on push and pull request events
+  push:
+  # pull_request:
+  # Allow manual runs from the Actions tab
+  workflow_dispatch:
+
+jobs:
+
+  Check:
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pixi
+        id: pixi-setup
+        uses: prefix-dev/setup-pixi@v0.8.3
+        with:
+          pixi-version: v0.42.1
+          frozen: true
+          # install bootstrap env
+          environments: >-
+            bootstrap
+          cache-write: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
+    
+      - name: get dependencies
+        run: pixi run setup
+
+      - name: install main env
+        run: pixi install --frozen
+  
+      - name: Lock-file is up-to-date
+        if: always() && steps.pixi-setup.outcome == 'success'
+        run: pixi list --locked
