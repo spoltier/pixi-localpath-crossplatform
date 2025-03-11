@@ -25,7 +25,7 @@ conda-build = "*"
 [feature.bootstrap.target.linux-64.tasks]
 setup = "setup.sh"
 [feature.bootstrap.target.win-64.tasks]
-setup = "setup.ps1"
+setup = "./setup.ps1"
 
 [environments]
 main = { features = ["main"] }
