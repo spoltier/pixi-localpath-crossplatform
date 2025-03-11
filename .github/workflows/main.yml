@@ -44,3 +44,14 @@ jobs:
         if: always() && steps.pixi-setup.outcome == 'success'
         run: pixi list --locked
 
+
+      - name: Fix Lock file
+        if: always()
+        run: pixi lock
+
+      - name: upload lock file
+        uses: actions/upload-artifact@v3
+        with:
+          path: pixi.lock
+          name: pixi.lock
+        
