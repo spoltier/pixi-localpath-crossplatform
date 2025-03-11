@@ -22,27 +22,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Pixi
-        id: pixi-setup
-        uses: prefix-dev/setup-pixi@v0.8.3
-        with:
-          pixi-version: v0.42.1
-          frozen: true
-          # install no envs
-          environments: ''
-          cache-write: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
-  
       - name: setup linux
         if: matrix.os == 'ubuntu-latest'
         run: setup.sh
 
       - name: setup windows
         if: matrix.os == 'windows-latest'
-        run: powershell -File setup.ps1      
+        run: powershell -File setup.ps1
 
 
-      - name: install main env
-        run: pixi install --frozen
+      - name: Setup Pixi
+        id: pixi-setup
+        uses: prefix-dev/setup-pixi@v0.8.3
+        with:
+          pixi-version: v0.42.1
+          frozen: true
+          cache-write: ${{ github.event_name == 'push' && github.ref_name == 'main' }}
+  
   
       - name: Lock-file is up-to-date
         if: always() && steps.pixi-setup.outcome == 'success'
