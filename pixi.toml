@@ -15,8 +15,8 @@ version = "0.1.0"
 
 [feature.main.target.win-64.dependencies]
 hll = { version = "*", channel = "file://C:/tmp/custom_artifacts/conda" }
-[feature.main.target.linux-64.dependencies]
-hll = { version = "*", channel = "file:///tmp/custom_artifacts/conda" }
+# [feature.main.target.linux-64.dependencies]
+# hll = { version = "*", channel = "file:///tmp/custom_artifacts/conda" }
 
 
 [environments]
