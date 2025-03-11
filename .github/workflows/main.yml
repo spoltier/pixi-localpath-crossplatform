@@ -54,4 +54,5 @@ jobs:
         with:
           path: pixi.lock
           name: pixi.lock
+        if: always()
         
