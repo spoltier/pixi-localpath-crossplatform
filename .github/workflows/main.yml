@@ -50,7 +50,7 @@ jobs:
         run: pixi lock
 
       - name: upload lock file
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           path: pixi.lock
           name: pixi.lock
