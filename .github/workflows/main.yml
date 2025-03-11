@@ -53,6 +53,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           path: pixi.lock
-          name: pixi.lock
+          name: ${{ matrix.os }}_pixi.lock
         if: always()
         
