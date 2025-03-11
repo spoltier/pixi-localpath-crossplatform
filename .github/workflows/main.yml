@@ -24,7 +24,7 @@ jobs:
 
       - name: setup linux
         if: matrix.os == 'ubuntu-latest'
-        run: setup.sh
+        run: ./setup.sh
 
       - name: setup windows
         if: matrix.os == 'windows-latest'
